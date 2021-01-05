@@ -1,0 +1,14 @@
+name: "Blog"
+title: "Awesome"
+description: |
+  Awesome
+output_dir: "_site"
+navbar:
+  right:
+    - text: "Home"
+      href: index.html
+    - text: "DataViz Makeover"
+      href: dataviz.html
+    - text: "About"
+      href: about.html
+output: distill::distill_article
