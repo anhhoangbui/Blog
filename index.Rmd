@@ -1,5 +1,5 @@
 ---
-title: "Awesome"
+title: "Bui Anh Hoang's Blog"
 site: distill::distill_website
 listing: posts
 ---

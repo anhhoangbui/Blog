@@ -1,7 +1,7 @@
-name: "Blog"
-title: "Awesome"
+name: "Anh Hoang's Blog"
+title: "Anh Hoang's Blog"
 description: |
-  Awesome
+  Anh Hoang's Visual Analytic's Blog
 output_dir: "_site"
 navbar:
   right:
@@ -9,6 +9,8 @@ navbar:
       href: index.html
     - text: "DataViz Makeover"
       href: dataviz.html
+    - text: "Visual Analytics Project"
+      herf: vaprj.html
     - text: "About"
       href: about.html
 output: distill::distill_article
