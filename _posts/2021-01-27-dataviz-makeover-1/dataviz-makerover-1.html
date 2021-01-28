@@ -111,7 +111,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["DataViz Makeover 1"]},{"type":"character","attributes":{},"value":["A makeover of the resident labour force data visualization from the Ministry of Manpower's Labour Force In Singpapore 2019 Report\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Bui Anh Hoang"]}]}]},{"type":"character","attributes":{},"value":["01-27-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["DataViz Makeover 1"]},{"type":"character","attributes":{},"value":["A makeover of the resident labour force data visualization from the Ministry of Manpower's Labour Force In Singpapore 2019 Report\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Bui Anh Hoang"]}]}]},{"type":"character","attributes":{},"value":["01-27-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc","toc_depth","toc_float"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[3]},{"type":"logical","attributes":{},"value":[false]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -1443,6 +1443,22 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 
 <div class="d-article">
+<div class="d-contents">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#critiques-and-suggestions">Critiques and Suggestions</a></li>
+<li><a href="#proposed-design">Proposed Design</a></li>
+<li><a href="#how-to-guide">How-to Guide</a><ul>
+<li><a href="#butterfly-chart">Butterfly Chart</a></li>
+<li><a href="#stacked-bar-chart">Stacked Bar Chart</a></li>
+</ul></li>
+<li><a href="#final-dashboard">Final Dashboard</a><ul>
+<li><a href="#insights">Insights</a></li>
+</ul></li>
+</ul>
+</nav>
+</div>
 <style>
 body {
 text-align: justify}
@@ -1467,8 +1483,8 @@ text-align: justify}
 </thead>
 <tbody>
 <tr class="odd">
-<td><em><strong>Clarity</strong></em></td>
 <td></td>
+<td><strong>Clarity</strong>_</td>
 <td></td>
 </tr>
 <tr class="even">
@@ -1478,7 +1494,7 @@ text-align: justify}
 </tr>
 <tr class="odd">
 <td>2</td>
-<td>The median age lines are using the table’s header as a continuous axis while the line chart is using it as a categorical axis, hence the intersections of the lines are incorrectly representing the labour force participation rate of age 41 and 44, respectively. The The text is also not clear if it’s referring to the median age of the labour force or the median age of the population</td>
+<td>The median age lines are using the table’s header as a continuous axis while the line chart is using it as a categorical axis, hence the intersections of the lines are incorrectly representing the labour force participation rate of age 41 and 44 in 2009 and 2019, respectively. The text is also not clear if it’s referring to the median age of the labour force or the median age of the population</td>
 <td>The median lines should be removed. Some simple annotation would suffice to state the median age in 2009 and 2019</td>
 </tr>
 <tr class="even">
@@ -1492,8 +1508,8 @@ text-align: justify}
 <td>Add a Y-axis and clearly label the ticks with percentage</td>
 </tr>
 <tr class="even">
-<td><em><strong>Aesthetic</strong></em></td>
 <td></td>
+<td><em><strong>Aesthetic</strong></em></td>
 <td></td>
 </tr>
 <tr class="odd">
@@ -1668,7 +1684,7 @@ text-align: justify}
 <li>Arrange the 3 previous created sheets in the Dashboard to achieve the <strong>Butterfly Chart</strong>.</li>
 </ol>
 <div class="layout-chunk" data-layout="1-body-outset">
-<p><img src="images/22butterfly.PNG" width="512" /></p>
+<p><img src="images/22butterfly.PNG" width="516" /></p>
 </div>
 <h3 id="stacked-bar-chart">Stacked Bar Chart</h3>
 <ol type="1">
@@ -1718,13 +1734,13 @@ text-align: justify}
 <h2 id="final-dashboard">Final Dashboard</h2>
 <p><a href="https://public.tableau.com/profile/bui.anh.hoang3167#!/vizhome/DataViz1v2/DataViz?publish=yes">Link to Tableau Public</a></p>
 <div class="layout-chunk" data-layout="l-body-outset">
-<p><img src="images/final.png" width="1169" /></p>
+<p><img src="images/final.png" width="1100" /></p>
 </div>
 <h3 id="insights">Insights</h3>
 <ul>
 <li>Singapore seems to have an aging workforce as the distribution of the labour force is leaning more towards the older age group in 2019 compare to 2009.</li>
-<li>The distribution of all the age groups from 60 and above have the largest increase in 2019 relative to 2009, indicating that elder people may still have to work instead of retiring.</li>
-<li>The age group which held the largest distribution in 2009 is 35-39, however, by 2019, the age group with the biggest distribution has shifted to age group 45-49.</li>
+<li>The distribution of all the age groups from 60 and above has the largest increase in 2019 relative to 2009, indicating that elder people may still have to work instead of retiring.</li>
+<li>The age group which held the largest share in 2009 is 35-39, however, by 2019, the age group with the biggest share has shifted to age group 45-49.</li>
 </ul>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->

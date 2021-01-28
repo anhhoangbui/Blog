@@ -8,6 +8,9 @@ date: 01-27-2021
 output:
   distill::distill_article:
     self_contained: false
+    toc: true
+    toc_depth: 3
+    toc_float: false
 ---
 <style>
 body {
@@ -29,12 +32,12 @@ knitr::include_graphics("images/Original DataViz.PNG")
 
 |#| <font size="4">Critique                        | <font size="4">Suggestion             |
 |-|---------------------------------|------------------------|
-|_**Clarity**_|
+||**Clarity**_|
 |1|The text is comparing the sum of share of resident labour force of multiple age groups between 2009 and 2019 but those numbers are not highlighted and requires the reader to do the calculations using the data from the table|Use a separate chart for the comparison between 2 years|
-|2|The median age lines are using the table's header as a continuous axis while the line chart is using it as a categorical axis, hence the intersections of the lines are incorrectly representing the labour force participation rate of age 41 and 44, respectively. The The text is also not clear if it's referring to the median age of the labour force or the median age of the population|The median lines should be removed. Some simple annotation would suffice to state the median age in 2009 and 2019|
+|2|The median age lines are using the table's header as a continuous axis while the line chart is using it as a categorical axis, hence the intersections of the lines are incorrectly representing the labour force participation rate of age 41 and 44 in 2009 and 2019, respectively. The text is also not clear if it's referring to the median age of the labour force or the median age of the population|The median lines should be removed. Some simple annotation would suffice to state the median age in 2009 and 2019|
 |3|Title does not represent the message the data visualization tries to convey|Rewrite the title to better describe the data visualization|
 |4|The line graph does not have a Y-axis|Add a Y-axis and clearly label the ticks with percentage|
-|_**Aesthetic**_|
+||_**Aesthetic**_|
 |1|The background color being grey serves no purpose and makes the 2 colors in the visualization less contrasting. These choice of colors would also be indistinguishable if the report is not color printed|Use a white background with a colored border around the visualization if needed|
 |2|Table headers are used as the x-axis of the table which makes the line graph on top looks out of place|Use a separate chart instead|
 |3|"70&Over" is too long for the table cell, making it look crammed|"70+" would be more space efficient while still able to convey the meaning|
@@ -247,5 +250,5 @@ knitr::include_graphics("images/final.png")
 
 ### Insights
 + Singapore seems to have an aging workforce as the distribution of the labour force is leaning more towards the older age group in 2019 compare to 2009.
-+ The distribution of all the age groups from 60 and above have the largest increase in 2019 relative to 2009, indicating that elder people may still have to work instead of retiring.
-+ The age group which held the largest distribution in 2009 is 35-39, however, by 2019, the age group with the biggest distribution has shifted to age group 45-49.
++ The distribution of all the age groups from 60 and above has the largest increase in 2019 relative to 2009, indicating that elder people may still have to work instead of retiring.
++ The age group which held the largest share in 2009 is 35-39, however, by 2019, the age group with the biggest share has shifted to age group 45-49.
