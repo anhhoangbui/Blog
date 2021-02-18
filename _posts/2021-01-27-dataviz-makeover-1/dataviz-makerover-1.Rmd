@@ -32,7 +32,7 @@ knitr::include_graphics("images/Original DataViz.PNG")
 
 |#| <font size="4">Critique                        | <font size="4">Suggestion             |
 |-|---------------------------------|------------------------|
-||**Clarity**_|
+||_**Clarity**_|
 |1|The text is comparing the sum of share of resident labour force of multiple age groups between 2009 and 2019 but those numbers are not highlighted and requires the reader to do the calculations using the data from the table|Use a separate chart for the comparison between 2 years|
 |2|The median age lines are using the table's header as a continuous axis while the line chart is using it as a categorical axis, hence the intersections of the lines are incorrectly representing the labour force participation rate of age 41 and 44 in 2009 and 2019, respectively. The text is also not clear if it's referring to the median age of the labour force or the median age of the population|The median lines should be removed. Some simple annotation would suffice to state the median age in 2009 and 2019|
 |3|Title does not represent the message the data visualization tries to convey|Rewrite the title to better describe the data visualization|
