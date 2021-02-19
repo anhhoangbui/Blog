@@ -1,16 +1,20 @@
 ---
 title: "DataViz Makeover 2"
 description: |
-  A short description of the post.
+  A makeover of the data visualization of the responses to a COVID-19 survey done by the Imperial College London YouGov Covid 19 Behaviour Tracker Data Hub
 author:
   - name: Bui Anh Hoang
-    url: {}
 date: 02-18-2021
 output:
   distill::distill_article:
     self_contained: false
+    toc: true
+    toc_depth: 3
 ---
-
+<style>
+body {
+text-align: justify}
+</style>
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
@@ -73,20 +77,19 @@ df[df['vac_1'].notnull()][columns].to_csv('preped_data.csv')
 
 The final data file can be [Download Here](https://smu-my.sharepoint.com/:x:/g/personal/ahbui_2019_mitb_smu_edu_sg/ER_fKuT_8lhDlgtD0OxV14gBd2aA58PrjiZxXMr_Eg0Sog?e=Wexnds)
 
-1. Open Tableau and connect to the data file from the previous section.
-2. Right-click on the Filename column and select Split
-3. Hide the Filename column and rename the new Filename - Split 1 column to Country
-4. Right-click on the Country column and select Alias then set the country names to the proper format with capitalization.
+1. *Open* **Tableau** and connect to the data file from the previous section.
+2. *Right-click* on the **Filename** column and select **Split**
+3. Hide the **Filename** column and rename the new **Filename - Split 1** column to **Country**
+4. *Right-click* on the Country column and select Alias then set the country names to the proper format with capitalization.
 5. Rename the following columns to their respective question:
-  + vac_1 - I am worried about getting COVID19
-  + vac2_1 - I am worried about potential side effects of a COVID19 vaccine
-  + vac2_2 - I believe government health authorities in my country will provide me with an effective COVID19 vaccine
-  + vac2_3 - If a Covid-19 vaccine becomes available to me a year from now, I definitely intend to get it
-  + vac2_6 - If a Covid-19 vaccine were made available to me this week, I would definitely get it
-  + vac_3 - If I do not get a COVID19 vaccine when it is available, I will regret it
-6. Select all the question columns in step 5 and Pivot them
-7. Rename the pivoted columns to Question and Answer
-8. Result:
+    + *vac_1* - I am worried about getting COVID19
+    + *vac2_1* - I am worried about potential side effects of a COVID19 vaccine
+    + *vac2_2* - I believe government health authorities in my country will provide me with an effective COVID19 vaccine
+    + *vac2_3* - If a Covid-19 vaccine becomes available to me a year from now, I definitely intend to get it
+    + *vac2_6* - If a Covid-19 vaccine were made available to me this week, I would definitely get it
+    + *vac_3* - If I do not get a COVID19 vaccine when it is available, I will regret it
+6. Select all the question columns in step 5 and **Pivot** them
+7. Rename the pivoted columns to **Question** and **Answer**
 
 ```{r layout="1-body"}
 knitr::include_graphics("images/01columns.png")
@@ -94,28 +97,28 @@ knitr::include_graphics("images/01columns.png")
 
 ### Divergent Stacked Bar
 
-1. Go to Sheet1 and rename the sheet to Likert.
-2. Create the following Parameters:
-+ Granularity:
+1. Go to **Sheet1** and rename the sheet to **Likert**.
+2. Create the following **Parameters**:
+  + Granularity:
 
 ```{r,  out.width = "60%"}
 knitr::include_graphics("images/02granularity.png")
 ```
 
-+ Neutral Response:
+  + Neutral Response:
 
 ```{r,  out.width = "60%"}
 knitr::include_graphics("images/03neutral.png")
 ```
 
-+ Sort By:
+  + Sort By:
 
 ```{r,  out.width = "60%"}
 knitr::include_graphics("images/04sortby.png")
 ```
 
-3. Create the following Calculated Fields:
-+ Response:
+3. Create the following **Calculated Fields**:
+    + Response:
 ```
 IF [Granularity] = "Coarse" THEN 
     IF [Answer] = "1 - Strongly agree" OR [Answer] = "2"
@@ -137,21 +140,21 @@ ELSE
     END
 END
 ```
-+ Count Agree: 
+    + Count Agree: 
 ```
 IF [Response] = "Agree" OR [Response] = "Strongly Agree" OR [Response] = "Agree "
 THEN 1
 ELSE 0
 END
 ```
-+ Count Disagree:
+    + Count Disagree:
 ```
 IF [Response] = "Disagree" OR [Response] = "Strongly Disagree" OR [Response] = "Disagree "
 THEN 1
 ELSE 0
 END
 ```
-+ Count Negative:
+    + Count Negative:
 ```
 IF [Response] = "Disagree" OR [Response] = "Strongly Disagree" OR [Response] = "Disagree "
 THEN -1
@@ -160,7 +163,7 @@ THEN -0.5
 ELSE 0
 END
 ```
-+ Count Positive:
+    + Count Positive:
 ```
 IF [Response] = "Agree" OR [Response] = "Strongly Agree" OR [Response] = "Agree "
 THEN 1
@@ -169,45 +172,45 @@ THEN 0.5
 ELSE 0
 END
 ```
-+ Label Negative:
+    + Label Negative:
 ```
 IF  AVG([Neutral Check])*[Percentage Negative] = 0 THEN NULL
 ELSE [Percentage Negative]
 END
 ```
-+ Label Positive:
+    + Label Positive:
 ```
 IF  AVG([Neutral Check])*[Percentage Positive] = 0 THEN NULL
 ELSE [Percentage Positive]
 END
 ```
-+ Neutral Check:
+    + Neutral Check:
 ```
 IF [Response] = "Neutral" THEN 0
 ELSE 1
 END
 ```
-+ Number of Records:
+    + Number of Records:
 ```
 1
 ```
-+ Percentage Agree:
+    + Percentage Agree:
 ```
 SUM([Count Agree])/SUM({Exclude [Response]:SUM([Number of Records])})
 ```
-+ Percentage Disagree:
+    + Percentage Disagree:
 ```
 -SUM([Count Disagree])/SUM({Exclude [Response]:SUM([Number of Records])})
 ```
-+ Percentage Negative:
+    + Percentage Negative:
 ```
 SUM([Count Negative])/SUM({Exclude [Response]:SUM([Number of Records])})
 ```
-+ Percentage Positive:
+    + Percentage Positive:
 ```
 SUM([Count Positive])/SUM({Exclude [Response]:SUM([Number of Records])})
 ```
-+ Sort By Field:
+    + Sort By Field:
 ```
 CASE [Sort By]
     WHEN 'Agree' THEN SUM([Count Agree])/SUM({Exclude [Response]:SUM([Number of Records])})
@@ -216,109 +219,107 @@ CASE [Sort By]
     WHEN 'Disagree (Including Neutral)' THEN -SUM([Count Negative])/SUM({Exclude [Response]:SUM([Number of Records])})
 END
 ```
-+ Total Count:
+    + Total Count:
 ```
 TOTAL(SUM([Number of Records]))
 ```
 
-4. Put **Answer** in the Filter card and uncheck the Null value.
-5. Put Country in the Rows card the Percentage Negative and Percentage Positive in the Columns card
-6. Right-click on the Percentage Positive pill and select Dual Axis
+4. Put **Answer** in the **Filters** card and *uncheck* the **Null** value.
+5. Put **Country** in the **Row**s card, **Percentage Negative** and **Percentage Positive** in the **Columns** card.
+6. *Right-click* on the **Percentage Positive** pill and select **Dual Axis**.
 
 ```{r,  out.width = "70%"}
 knitr::include_graphics("images/05cards.png")
 ```
 
-7. Right-click on either of the X-axis and select Synchronize Axis.
-8. In the Marks card, change the type of All to Bar.
-9. Drag-and-drop Response into the Color tool in the Marks card
+7. *Right-click* on either of the X-axis and select **Synchronize Axis**.
+8. In the **Marks** card, change the type of All to **Bar**.
+9. *Drag-and-drop* **Response** into the **Color** tool in the **Marks** card.
 
 ```{r,  out.width = "25%"}
 knitr::include_graphics("images/06marks.png")
 ```
 
-10. In the filter shelf, drag-and-drop to reorder Neutral to the top of the list and set the colors and order of Response as follow
+10. In the **Filter** shelf, reorder **Neutral** to the top of the list and set the colors and order of **Response** as follow.
 
 ```{r,  out.width = "25%"}
 knitr::include_graphics("images/07response.png")
 ```
 
-11. Right-click on the Granularity, Neutral Response and Sort By parameter and select Show Parameter for each of them
-12. Set Granularity to Detailed
-13. Order and set the color of Response again
+11. *Right-click* on the **Granularity**, **Neutral Response** and **Sort By** parameter and select **Show Parameter** for each of them.
+12. Set **Granularity** to **Detailed**.
+13. Order and set the color of **Response** again.
 
 ```{r,  out.width = "25%"}
 knitr::include_graphics("images/08response.png")
 ```
 
-14. Right-click on the Percentage Negative Axis and select Edit Axis
-15. Change the Range to Fixed and set Fixed start to -0.7 and Fixed end to 1
-16. Remove the Title of the axis
+14. *Right-click* on the **Percentage Negative** axis and select **Edit Axis**.
+15. Change the *Range* to **Fixed** and set **Fixed star**t to **-0.7** and **Fixed end** to **1**.
+16. *Remove* the **Title** of the axis.
 
 ```{r,  out.width = "50%"}
 knitr::include_graphics("images/09axis.png")
 ```
 
-17. Hide the top axis (Percentage Positive)
-18. Right-click on the bottom axis and select Format
-19. Under the Scale section, change numbers to Percentage with 0 decimal places, then click on Custom and set the value as follow
+17. Hide the top axis (**Percentage Positive**).
+18. *Right-click* on the bottom axis and select **Format**.
+19. Under the *Scale* section, change numbers to **Percentage** with **0 decimal places**, then click on **Custom** and set the value as follow:
 
 ```{r,  out.width = "70%"}
 knitr::include_graphics("images/10percent.png")
 ```
 
-20. Drag-and-drop Label Negative to Label in the Marks > AGG(Percentage Negative) card
+20. *Drag-and-drop* **Label Negative** to **Label** in the **Marks > AGG(Percentage Negative)** card.
 
 ```{r,  out.width = "30%"}
 knitr::include_graphics("images/11marks.png")
 ```
 
-21. Right-click on the Label Negative pill and select format.
-22. Set the format to Percentage similar to step 19, but this time set decimal places to 1 and the customer format to **0.0%;0.0%**
-23. Drag-and-drop Label Positive to Label in the Marks > AGG(Percentage Positive) card
-24. Set the format of Label Positive similar to the format of Label Negative in step 22
-25. Right-click on the Country pill in the Rows card and select Sort
-26. Set Sort By to Field, Sort Order to Descending and Field Name to Sort By Field
+21. *Right-click* on the **Label Negative** pill and select **Format**.
+22. Set the format to **Percentage** similar to *step 19*, but this time set decimal places to **1** and the customer format to **0.0%;0.0%**.
+23. *Drag-and-drop* **Label Positive** to **Label** in the **Marks > AGG(Percentage Positive)** card.
+24. Set the format of **Label Positive** similar to the format of **Label Negative** in *step 22*.
+25. *Right-click* on the **Country** pill in the **Rows** card and select **Sort**.
+26. Set *Sort By* to **Field**, *Sort Order* to **Descending** and *Field Name* to **Sort By Field**.
 
 ```{r,  out.width = "35%"}
 knitr::include_graphics("images/12sort.png")
 ```
 
-#### Legends
-
-27. Create the following Calculated Fields:
-+ Legend Coarse Agree:
+27. Create the following **Calculated Fields**:
+    + Legend Coarse Agree:
 ```
 IF [Granularity] = "Coarse" THEN "Agree"
 ELSE "Strongly Agree"
 END
 ```
-+ Legend Coarse Disagree:
+    + Legend Coarse Disagree:
 ```
 IF [Granularity] = "Coarse" THEN "Disagree"
 ELSE "Strongly Disagree"
 END
 ```
-+ Legend Detailed Agree:
+    + Legend Detailed Agree:
 ```
 IIF([Granularity]="Detailed","Agree","")
 ```
-+ Legend Detailed Disagree:
+    + Legend Detailed Disagree:
 ```
 IIF([Granularity]="Detailed","Disagree","")
 ```
-+ Legend Neutral:
+    + Legend Neutral:
 ```
 IF [Neutral Response] THEN "Neutral"
 ELSE ""
 END
 ```
-+ Legend Pipe Symbol:
+    + Legend Pipe Symbol:
 ```
 IIF([Granularity]="Detailed","|","")
 ```
 
-28. Drag-and-drop all 6 Legend fields into the Detail of the Marks > All card
+28. *Drag-and-drop* all 6 Legend fields into the **Detail** of the **Marks > All** card.
 
 ```{r,  out.width = "30%"}
 knitr::include_graphics("images/13marks.png")
@@ -330,37 +331,61 @@ knitr::include_graphics("images/13marks.png")
 knitr::include_graphics("images/14title.png")
 ```
 
-30. On the Toolbar, select Format > Lines
-31. Set Column Grid Lines to None and Row Grid Lines to a grey line
+30. On the **Toolbar**, select **Format > Lines**.
+31. Set **Column Grid Lines** to **None** and **Row Grid Lines** to a grey line.
 
 ```{r,  out.width = "50%"}
 knitr::include_graphics("images/15lines.png")
 ```
 
-32. The divergent stacked bar chart is now complete. We will revisit it later to configure the Tooltip
+32. The divergent stacked bar chart is now completed.
 
 ```{r,  out.width = "100%"}
 knitr::include_graphics("images/16chart.png")
 ```
 
+31. We need to create a tooltip for the chart, so let's create a new worksheet called **Tooltip**.
+32. Place the pills into the following location:
+
+```{r,  out.width = "50%"}
+knitr::include_graphics("images/32tool.png")
+```
+
+33. Add a **Percent of Total** calculation for both **Number of Records** pills
+34. Set the **Alias**, colors and order for **Answer**.
+
+```{r,  out.width = "25%"}
+knitr::include_graphics("images/33answer.png")
+```
+
+35. Adjust the size of the chart to make it more compact.
+36. Go back to the **Likert** sheet and add **Total Count** to the **Detail** of the **Marks > All** card.
+37. Set **Total Count** to **Discrete** and compute using **Cell**.
+38. Configure the tooltip as follow:
+
+```{r,  out.width = "60%"}
+knitr::include_graphics("images/34tool.png")
+```
+
+
 ### Confidence Interval
 
-1. Create a new worksheet and name it Confidence Interval
-2. Create and show following Parameters:
-+ Response Selector:
+1. Create a new worksheet and name it **Confidence Interval**.
+2. Create and show following **Parameters**:
+  + Response Selector:
 
 ```{r,  out.width = "60%"}
 knitr::include_graphics("images/17para.png")
 ```
 
-+ Show:
+  + Show:
 
 ```{r,  out.width = "60%"}
 knitr::include_graphics("images/18show.png")
 ```
 
-3. Create the following Calculated Fields:
-+ Count Response:
+3. Create the following **Calculated Fields**:
+    + Count Response:
 ```
 IF [Response Selector] = "6" THEN
     IF [Answer] = "1 - Strongly agree" OR [Answer] = "2"
@@ -376,81 +401,81 @@ ELSEIF [Answer] = [Response Selector] Then 1
 ELSE 0
 END
 ```
-+ Response CI Lower 95%:
+    + Response CI Lower 95%:
 ```
 IF [Show]="2" or [Show]="4" THEN [Selected Response]-[Response SE]*[Z_95%] END
 ```
-+ Response CI Lower 99%:
+    + Response CI Lower 99%:
 ```
 IF [Show]="3" or [Show]="4" THEN [Selected Response]-[Response SE]*[Z_99%] END
 ```
-+ Response CI Upper 95%:
+    + Response CI Upper 95%:
 ```
 IF [Show]="2" or [Show]="4" THEN [Selected Response]+[Response SE]*[Z_95%] END
 ```
-+ Response CI Upper 99%:
+    + Response CI Upper 99%:
 ```
 IF [Show]="3" or [Show]="4" THEN [Selected Response]+[Response SE]*[Z_99%] END
 ```
-+ Response SE:
+    + Response SE:
 ```
 SQRT(([Selected Response]*(1-[Selected Response]))/SUM([Number of Records]))
 ```
-+ Selected Response:
+    + Selected Response:
 ```
 SUM([Count Response])/SUM([Number of Records])
 ```
-+ Z_95%:
+    + Z_95%:
 ```
 1.959964
 ```
-+ Z_99%:
+    + Z_99%:
 ```
 2.575829
 ```
 
-3. Put Answer in the Filter card and remove the Null value
-4. Place Country in the Rows card and Selected Response in the Columns card
-5. Place Response CI Lower 99% to the Columns card and set it to Dual Axis
-6. Drag Response CI Upper 99% to the Response CI Lower 99% until a green equal icon appears, then drop
+3. Put **Answer** in the **Filters** card and remove the **Null** value.
+4. Place **Country** in the **Rows** card and **Selected Response** in the **Columns** card.
+5. Place **Response CI Lower 99%** to the **Columns** card and set it to **Dual Axis**.
+6. Drag **Response CI Upper 99%** to the **Response CI Lower 99%** axis until a green equal icon appears, then drop.
 
 ```{r,  out.width = "20%"}
 knitr::include_graphics("images/19icon.png")
 ```
 
-6. Drag-and-drop Response Lower 95% to the Measure Values card
-7. Drag-and-drop Response Upper 95% to the Measure Values card. Final result should be in this specific order:
+6. *Drag-and-drop* **Response Lower 95%** to the **Measure Values** card.
+7. *Drag-and-drop* **Response Upper 95%** to the **Measure Values** card. Final result should be in this specific order:
 
 ```{r,  out.width = "30%"}
 knitr::include_graphics("images/20measures.png")
 ```
 
-8. Right-click on Selected Response and select Synchronize Axis
-9. Set the Show parameter to Actual and 95%/99% if it has not been set
-10. In the Marks > Measure Values card, change the type to Line
-11. Hold Ctrl, drag-and-drop the Measure Names pills to the Path box
+8. *Right-click* on **Selected Response** and select **Synchronize Axis**.
+9. Set the **Show** parameter to **Actual and 95%/99%** if it has not been set.
+10. In the **Marks > Measure Values** card, change the type to **Line**.
+11. Hold Ctrl, *drag-and-drop* the **Measure Names** pills to the **Path** icon.
 
 ```{r,  out.width = "25%"}
 knitr::include_graphics("images/21lines.png")
 ```
 
-12. Set the color of Measure Names as follow
+12. Set the color of **Measure Names** as follow
 
 ```{r,  out.width = "25%"}
 knitr::include_graphics("images/22colors.png")
 ```
 
-13. Swap the order of Measure Values and Selected Response in the Column Card
-14. Hide the top X-axis
-15. Right-click on the bottom axis and select Edit Axis
-16. Remove the Title and uncheck Include zero
+13. Swap the order of **Measure Values** and **Selected Response** in the **Column** card.
+14. Hide the top X-axis.
+15. *Right-click* on the bottom axis and select **Edit Axis**.
+16. Remove the **Title** and uncheck **Include zero**.
 
 ```{r,  out.width = "50%"}
 knitr::include_graphics("images/23axis.png")
 ```
 
-17. Change the format of the X-axis to Percentage with 0 decimal place
-18. Set the title and change it's shading to yellow
+17. Change the format of the X-axis to **Percentage** with **0 decimal place**.
+18. Set the title and change it's shading to yellow.
 
 ```{r,  out.width = "65%"}
 knitr::include_graphics("images/24title.png")
@@ -462,13 +487,138 @@ knitr::include_graphics("images/24title.png")
 knitr::include_graphics("images/25chart.png")
 ```
 
-### Pie/donut charts
+### Pie charts
+
+1. Create a new worksheet and name it **Overview**.
+2. Place **Question** into the **Columns** card.
+3. Place **Number of Records** *two times* into the **Rows** card and make them **Dual Axis**.
+4. Change the measure of the **Number of Records** pill to **Minimum**.
+
+```{r,  out.width = "60%"}
+knitr::include_graphics("images/26cards.png")
+```
+
+5. Change the *first* **Marks > Number of Records** card type to **Pie**.
+6. Change the *second* **Marks > Number of Records** card type to **Circle**. Set the color to white and make the size smaller to get a doughnut shape.
+7. On the **Marks** card of the **Pie** chart, *drag-and-drop* **Response** to the **Angle** icon.
+8. Set the **Response**'s measure to **Count** and add a **Quick Table Calculation > Percent of Total**.
+9. Change the **Response**'s compute to **Compute Using > Cell**
+10. *Drag-and-drop* **Response** to **Color** in the **Pie** card.
+11. Hold Ctrl, *drag-and-drop* the **CNT(Response)** pill in the **Pie** card to the **Label** icon.
+
+```{r,  out.width = "50%"}
+knitr::include_graphics("images/27pie.png")
+```
+
+12. Add **Answer** in the **Filters** card and remove the **Null** value.
+13. Add **Country** to the **Columns** card.
+14. Add **Country** as the **Label** of the **Circle** card (the last one in the Marks card) and set the alignment to the center.
+15. Create a **Calculated Field** named **Rank** with the following formula:
+```
+INDEX()
+```
+16. *Right-click* on **Rank** and select **Convert to Discrete**.
+17. Place **Rank** in the middle of the **Question** pill and the **Country** pill in the **Columns** card.
+
+```{r,  out.width = "65%"}
+knitr::include_graphics("images/28rank.png")
+```
+
+18. *Right-click* on the **Rank** pill and select **Edit Table Calculation** and set the values as follow:
+
+```{r,  out.width = "50%"}
+knitr::include_graphics("images/29rank.png")
+```
+
+19. *Drag-and-drop* the **Rank** pill from the **Columns** card to the **Filters** card. Select all the values in the Filter dialogue.
+20. *Right-click* on the **Rank** pill and select **Continuous**. In the Filter dialogue, set the **Range of values to** from 1 to 1. The chart is now filtering to show only the top 1 country.
+21. Place all *6 Legend calculated fields* into the **Detail** of **Marks > All** card.
+22. Configure the sheet title as follow and set the shading as yellow:
+
+```{r,  out.width = "60%"}
+knitr::include_graphics("images/30title.png")
+```
+
+23. Hide the bottom axis and the 2 side axis.
+24. In **Format**, remove the **Rows Zero Line** and the **Row divider**.
+25. The pie charts are completed.
+
+```{r,  out.width = "100%"}
+knitr::include_graphics("images/31pie.png")
+```
 
 
-### Tooltip
+### Dashboard
+At this point we should have all the main components we need to arrange the dashboard. But before that, let's setup the shared Filters for all the charts.
+
+1. Create a new worksheet named **Question**.
+2. Add **Question** attribute into the **Filters** card.
+3. Set the title shading to grey and edit the title as follow:
+
+```{r,  out.width = "60%"}
+knitr::include_graphics("images/35question.png")
+```
+
+4. Open the **Likert** sheet
+5. Group the ages into groups by *right-click* on the **Age** measure and select **Create > Group**.
+6. Add **Question**, **Age Group**, **Employment Status**, **Gender**, **Household Size** into the **Filters** card. The **Answer** pill should already be in the Filters.
+7. For the **Question** pill in **Filters**, *right-click* and select **Apply to Worksheets > Selected Worksheets** with the following selection:
+    + Likert
+    + Confidence Interval
+    + Tooltip
+    + Question
+8. For all other pills in **Filters**, select **Apply to Worksheets > All Using this Data Source**.
+
+```{r,  out.width = "50%"}
+knitr::include_graphics("images/36filters.png")
+```
+
+9. Create a new dashboard and name it **COVID-19 Vaccine Sentiments**.
+10. Set the size to automatic or custom size. For myself, I set the custom size to 1700 x 1200.
+11. Add a title for the dashboard on top.
+12. Add the sheets **Likert**, **Confidence Interval**, **Overview** and **Question** to the dashboard in this layout:
+
+```{r layout="l-body-outset"}
+knitr::include_graphics("images/37layout.png")
+```
+
+13. Move all the filters and parameters to the right side of the dashboard, except for the **Response Selector** and the **Show** parameters, which should be placed at the top of the **Confidence Interval** chart.
+14. Set **Gender** to display as radio buttons.
+15. Set **Question**, **Response Selector**, **Show**, **Sort By**, **Granularity**, **Neutral Response** to display as dropdown lists.
+
+## Final Dashboard
+
+[Link to Tableau Public](https://public.tableau.com/profile/bui.anh.hoang3167#!/vizhome/DataVizMakeover-COVID-19VaccineSentiments/COVID-19VaccineSentiments?publish=yes)
 
 
+```{r layout="l-body-outset"}
+knitr::include_graphics("images/final1.png")
+```
+
+An alternative view of the final dashboard, with the parameters set to display the responses in more details.
+
+```{r layout="l-body-outset"}
+knitr::include_graphics("images/final2.png")
+```
 
 ### Insights
++ The first insight can be observed from the overview section:
 
+```{r,  out.width = "100%"}
+knitr::include_graphics("images/38insight1.png")
+```
+
+**Japan** is the most worrisome country when it comes to COVID-19, which aligns with how East Asian countries are generally more wary of the virus. **Denmark**, which has one of the most comprehensive social welfare and healthcare system in the world has the most trust in their government to provide them with an effective vaccine. **United Kingdom** people are both the most receptive and the most eager to getting a COVID-19 vaccine.
+
++ Globally, people of age 60 and above are more willingly to get a COVID-19 vaccine within the next week. This is most likely because this age group has much higher risk when contracted with the virus compared to younger people.
+
+```{r,  out.width = "100%"}
+knitr::include_graphics("images/39insight2.png")
+```
+
++ France is the country that is least agreeable when it comes to getting COVID-19 vaccine next week. However, they are much more likely to get the vaccine a year from now. This seems to indicate their skepticism against the current versions of vaccine and they are willing to wait to get a maybe better or safer version.
+
+```{r,  out.width = "100%"}
+knitr::include_graphics("images/40insight3.png")
+```
 
