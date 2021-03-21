@@ -34,11 +34,11 @@ knitr::include_graphics("images/Original DataViz.PNG")
 |-|---------------------------------|------------------------|
 ||_**Clarity**_|
 |1|The scale of the Y-axis of the line charts are not synchronized, which can lead to misinterpretation when comparing the number of events. For example, on first glance, it would seem like in 2020, there are more Explosions events compare to Battles  but it is in fact the other way around|Synchronized all the Y-axis to have the same scale, or better yet, combine all 6 line charts into a single chart|
-|2|||
+|2|Title of the chart on the right does not reflect the content of the chart, which is a count of events per event type|Rephrase the title of the line charts to provide better details|
+|3|"Count of Sheet1" is meaningless in explaining the Y-axis and redundant|Remove "Count of Sheet1" from the visualization|
 ||_**Aesthetic**_|
 |1|The dots in the map do not have any borders and are not transparent, which makes it difficult to discern events which are overlapped or near to each other|Add borders for each point and make them slightly transparent|
 |2|The line charts are not color coded and ordered in a different order compare to the provided legend, which can cause confusion|Color code the lines such that they follow the color of the Event Types in the map|
-|3|"Count of Sheet1" is meaningless in explaining the Y-axis and redundant|Remove "Count of Sheet1" from the visualization|
 ||_**Interactivity**_|
 |1|The visualization does not provided a filter for Event Date and Event Type|Add a filter for Event Date and Event Type|
 |2|There are no interactions between the map and the charts on the right|Add interactions such as selecting a point in the map will highlight the line chart pertaining to the event type of the selected point|
