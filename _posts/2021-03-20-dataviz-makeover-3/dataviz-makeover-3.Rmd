@@ -338,6 +338,20 @@ knitr::include_graphics("images/25dash.png")
 knitr::include_graphics("images/26legend.png")
 ```
 
+29. On the **Toolbar**, select **Dashboard** > **Action>>.
+30. Add the following dashboard actions:
+
+```{r,  out.width = "60%"}
+knitr::include_graphics("images/27dash.png")
+```
+
+```{r,  out.width = "60%"}
+knitr::include_graphics("images/28dash.png")
+```
+
+```{r,  out.width = "60%"}
+knitr::include_graphics("images/29dash.png")
+```
 
 ## Final Dashboard
 
